@@ -49,6 +49,45 @@ class StudentsController extends Controller
     }
     //create data end
 
+    //student profile
+    public function UploadProfile(Request $request, $id){
+        $validator = Validator::make($request->all(),
+        [
+            'student_profile' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if($validator->fails()){
+            return Response()->json($validator->errors());
+        }
+
+        //define nama file yang akan di upload
+        $imageName = time () .'.'. $request->student_profile->extension();
+
+        //proses upload
+        $request->student_profile->move(public_path('images'), $imageName);
+
+        $update=Students::where('id_student',$id)->update([
+            'image' => $imageName
+        ]);
+
+        $data = Students::where('id_student', '=', $id)-> get();
+
+        if($update){
+            return Response() -> json([
+                'status' => 1,
+                'message' => 'Succes upload student profile!',
+                'data' => $data
+            ]);
+        } else 
+        {
+            return Response() -> json([
+                'status' => 0,
+                'message' => 'Failed upload student profile!'
+            ]);
+        }
+    }
+    //student profile
+
     //read data start
     public function show(){
         return Students::all();

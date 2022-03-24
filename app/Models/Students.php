@@ -10,6 +10,6 @@ class Students extends Model
     protected $table = 'students';
     public $timestamps = true;
 
-    protected $fillable = ['student_name', 'date_of_birth', 'gender', 'address', 'id_class'];
+    protected $fillable = ['student_name', 'date_of_birth', 'gender', 'address', 'id_class', 'image'];
     use HasFactory;
 }

@@ -34,6 +34,8 @@ Route::group(['middleware' => ['jwt.verify:SuperAdmin,Admin,Customers']], functi
 {
     //SUPER ADMIN
     Route::group(['middleware' => ['jwt.verify:SuperAdmin']], function (){
+    // Route::get('/login_check', [UserController::class, 'getAuthenticatedUser']);
+
     //DELETE
         Route::delete('/Students/{id}', [StudentsController::class, 'delete']);
         Route::delete('/Grade/{id}', [GradeController::class, 'delete']);
@@ -47,8 +49,10 @@ Route::group(['middleware' => ['jwt.verify:SuperAdmin,Admin,Customers']], functi
     Route::group(['middleware' => ['jwt.verify:SuperAdmin,Admin']],function(){
     //POST
         Route::post('/Students', [StudentsController::class, 'store']);
+        Route::post('/Students/UploadProfile/{id}', [StudentsController::class, 'UploadProfile']);
         Route::post('/Grade', [GradeController::class, 'store']);
         Route::post('/Book', [BookController::class, 'store']);
+        Route::post('/Book/UploadCover/{id}', [BookController::class, 'UploadCover']);
         Route::post('/BookBorrow', [BookBorrowController::class, 'store']);
         Route::post('/BookReturn', [BookReturnController::class, 'store']);
         Route::post('/BookBorrowDetails', [BookBorrowDetailsController::class, 'store']);

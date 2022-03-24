@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration
             $table->date('date_of_birth');
             $table->enum('gender', ['L','P']);
             $table->text('address');
+            $table->text('image');
             $table->unsignedBigInteger('id_class');
             $table->timestamps();
 

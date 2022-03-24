@@ -52,6 +52,45 @@ class BookController extends Controller
     }
     //create data end
 
+    //book cover
+    public function UploadCover(Request $request, $id){
+        $validator = Validator::make($request->all(),
+        [
+            'book_cover' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if($validator->fails()){
+            return Response()->json($validator->errors());
+        }
+
+        //define nama file yang akan di upload
+        $imageName = time () .'.'. $request->book_cover->extension();
+
+        //proses upload
+        $request->book_cover->move(public_path('images'), $imageName);
+
+        $update=Book::where('id_book',$id)->update([
+            'image' => $imageName
+        ]);
+
+        $data = Book::where('id_book', '=', $id)-> get();
+
+        if($update){
+            return Response() -> json([
+                'status' => 1,
+                'message' => 'Succes upload book cover!',
+                'data' => $data
+            ]);
+        } else 
+        {
+            return Response() -> json([
+                'status' => 0,
+                'message' => 'Failed upload book cover!'
+            ]);
+        }
+    }
+    //book cover
+
     //read data start
     public function show(){
         return Book::all();
