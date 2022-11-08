@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Grade extends Model
 {
     protected $table = 'grade';
+    public $primaryKey = 'id_class';
     public $timestamps = true;
 
     protected $fillable = ['class_name', 'group'];

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BookReturn extends Model
 {
     protected $table = 'book_return';
+    protected $primaryKey = 'id_book_return';
     public $timestamps = true;
 
     protected $fillable = ['id_book_borrow', 'date_of_returning', 'fine'];
